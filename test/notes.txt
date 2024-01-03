@@ -1,0 +1,89 @@
+../bin/crypt -h
+../bin/crypt -k asdfasdfkey
+../bin/crypt -f ../test_files/key.dat
+../bin/crypt -f ../test_files/key.dat ../test_files/input_file.dat
+../bin/crypt -f ../test_files/key.dat -o ../test_files/out.dat ../test_files/input_file.dat
+../bin/crypt -k testkey -o ../test_files/out.dat ../test_files/input_file.dat
+../bin/crypt -k testkey ../test_files/input_file.dat
+
+# Encrypt a file and write it out to stdout or tmp using the same key
+../bin/crypt -k testkey -o ../test_files/out.dat ../test_files/input_file.dat
+../bin/crypt -k testkey -o tmp ../test_files/out.dat
+../bin/crypt -k testkey ../test_files/out.dat 
+
+# Read and write to stdin and stdout, respectively
+../bin/crypt -k testkey1testkey1
+../bin/crypt -k testkey1testkey1 -o tmp
+
+Note: writing to a file will append to the file if it exists, or create a new file and write
+
+Example running testcrypt
+root@localhost:~/src# ../bin/testcrypt
+[+]: Starting testcrypt, test application
+[+]: Key size: 6
+[+]: Decrypting 30 bytes...
+[+]: crypt_buffer success, decrypted 30 bytes. Output:
+
+Decoding seems to be correct.
+
+[+]: Decrypting 74 bytes...
+[+]: crypt_buffer success, decrypted 74 bytes. Output:
+
+Status should be kept, so different code might yield same decoded string.
+
+[+]: Decrypting 74 bytes...
+[+]: crypt_buffer success, decrypted 74 bytes. Output:
+
+Status should be kept, so different code might yield same decoded string.
+
+[+]: Decrypting 1 bytes...
+[+]: crypt_buffer success, decrypted 1 bytes. Output:
+
+A
+[+]: Decrypting 42 bytes...
+[+]: crypt_buffer success, decrypted 42 bytes. Output:
+
+
+Must work for single characters as well.
+
+
+
+
+
+
+
+
+Example reading from and to a file using stdin/stdout
+crypt -k testkey1testkey1 -o tmp
+[+]:  [crypt] (v1.0)
+[+]: libcryptprov version: v0.1 (0x00000001)
+
+[+]: key: testkey1testkey1 (size: 16)
+[+]: input_buf: stdin
+[+]: output_buf_path: tmp
+asdiofaoisdfioasjdf
+[+]: Written output to file tmp (size: 16)
+aiofjgoidfjgoisdjfgosdfgiojsodfigjsodifjg
+[+]: Written output to file tmp (size: 16)
+[+]: Written output to file tmp (size: 16)
+asodifjoiasdjfoiasjdfaosidjoisjdoifjosidjfoisdjfoisd
+[+]: Written output to file tmp (size: 16)
+[+]: Written output to file tmp (size: 16)
+[+]: Written output to file tmp (size: 16)
+[+]: Written output to file tmp (size: 16)
+[+]: read_from_stdin: Received EOF
+[+]: Written output to file tmp (size: 3)
+[+]: mode_input_stdin: total read: 115
+[+]: Cleanup...
+crypt -k testkey1testkey1 tmp
+[+]:  [crypt] (v1.0)
+[+]: libcryptprov version: v0.1 (0x00000001)
+
+[+]: read_file: Successfully read file tmp size: 115
+[+]: key: testkey1testkey1 (size: 16)
+[+]: input_buf:  (size: 115)
+[+]: output_buf_path: stdout
+asdiofaoisdfioasjdf
+aiofjgoidfjgoisdjfgosdfgiojsodfigjsodifjg
+asodifjoiasdjfoiasjdfaosidjoisjdoifjosidjfoisdjfoisd
+[+]: Cleanup...
